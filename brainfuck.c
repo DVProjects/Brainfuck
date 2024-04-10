@@ -4,9 +4,10 @@
 
 #define DATA_SIZE 30000
 
-uint8_t data_ptr[DATA_SIZE] = {0};
-uint8_t *data_start = data_ptr;
-uint8_t *data_end = data_ptr+DATA_SIZE;
+uint8_t data[DATA_SIZE] = {0};
+uint8_t *data_ptr = data;
+uint8_t *data_start = data;
+uint8_t *data_end = data+DATA_SIZE;
 FILE* file;
 
 void execute(void){
@@ -20,6 +21,12 @@ void execute(void){
 				break;
 			case '-':
 				(*data_ptr)--;
+				break;
+			case '>':
+				if (data_ptr != data_end)data_ptr++;
+				break;
+			case '<':
+				if (data_ptr != data_start)data_ptr--;
 				break;
 			case '.':
 				putchar(*data_ptr);
