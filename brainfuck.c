@@ -1,13 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-unsigned char data_pointer[30000] = {0};
+#define DATA_SIZE 30000
+
+uint8_t data_ptr[DATA_SIZE] = {0};
+uint8_t *data_start = data_ptr;
+uint8_t *data_end = data_ptr+DATA_SIZE;
 FILE* file;
 
 void execute(void){
+	int c;
 	while (1) {
 		if (feof(file))break;
-		fgetc(file);
+		c = fgetc(file);
+		switch (c) {
+			case '+':
+				(*data_ptr)++;
+				break;
+			case '-':
+				(*data_ptr)--;
+				break;
+			case '.':
+				putchar(*data_ptr);
+				break;
+			default://comment found
+		}
 	}
 }
 
